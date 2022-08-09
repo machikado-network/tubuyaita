@@ -8,21 +8,18 @@ post:
     content:
       application/json:
         schema:
-          required:
-            - publicKey
-          type: object
-          properties:
-            publicKey:
-              type: string
+          $ref: '../../components/message.yaml'
+
   responses:
-    200:
-      description: Successful Creating Message
+    201:
+      description: メッセージが作成された。
       content:
         application/json:
           schema:
-            required:
-              - id
-            type: object
-            properties:
-              id:
-                type: string
+            $ref: '../../components/message.yaml'
+    401:
+      description: contentsの証明が正しくない。
+    409:
+      description: contentsのハッシュ値のメッセージが、すでに存在している。
+    429:
+      description: メッセージの送信速度が早すぎる。

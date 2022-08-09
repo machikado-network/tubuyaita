@@ -1,0 +1,11 @@
+{
+  "version": "3",
+  "name": "tubuyaita-redoc",
+  "scripts": {
+    "redoc": "redoc-cli bundle ./src/openapi.yaml --options.menuToggle --options.pathInMiddlePanel  -o ./dist/index.html"
+  },
+  "devDependencies": {
+    "redoc": "^2.0.0-rc.74",
+    "redoc-cli": "^0.13.17"
+  }
+}

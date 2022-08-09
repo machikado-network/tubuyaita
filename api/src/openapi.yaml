@@ -13,5 +13,4 @@ servers:
             default: '8080'
 paths:
   /messages:
-    $ref: "./services/messages/index.yaml"
-
+    $ref: './services/messages/index.yaml'

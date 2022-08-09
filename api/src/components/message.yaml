@@ -1,0 +1,44 @@
+#　Messageのcontentsは
+# ```ts
+# interface Message {
+#     publicKey: string
+#     contents: (Content | EncryptedContent[]) & Timestamp // <- これが文字列になってる
+#     sign: string
+# }
+#
+#
+# interface Timestamp {
+#     timestamp: number // UTC Timestamp (Date.now())
+# }
+#
+# interface Content {
+#     body: string
+#     retweet?: Retweet
+# }
+#
+# interface EncryptedContent {
+#     content: Content // Encrypted
+#     receiverPublicKey: string
+# }
+#
+# interface Retweet {
+#     host: string // 10.50.12.1とかsyamimomo.d.mchkd.netとか
+#     port: number // 80とか
+#     id: string // {Request}から作られたhash
+# }
+# ```
+
+title: Message
+required:
+  - senderPublicKey
+type: object
+properties:
+  publicKey:
+    description: "送信元のPublic Key"
+    type: string
+  sign:
+    description: "送信元がcontentsに行った証明"
+    type: string
+  contents:
+    description: "送信する内容"
+    type: string
