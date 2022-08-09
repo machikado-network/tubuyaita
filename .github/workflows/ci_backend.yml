@@ -1,0 +1,49 @@
+name: CI for Backend
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  elixir-ci:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:latest
+        ports:
+          - '5432:5432'
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.13.4
+          otp-version: 25
+
+      - name: Restore Cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            tubuyaita/deps
+            tubuyaita/_build
+          key: ${{ runner.os }}-25-1.13.4-${{ hashFiles('tubuyaita/mix.lock') }}
+
+      - name: Install dependencies
+        working-directory: tubuyaita
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.compile
+
+      - run: mix test --trace --slowest 10
