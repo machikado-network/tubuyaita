@@ -1,0 +1,28 @@
+post:
+  summary: |
+    Create a message
+  description: ''
+  operationId: postMessages
+  requestBody:
+    description: ''
+    content:
+      application/json:
+        schema:
+          required:
+            - publicKey
+          type: object
+          properties:
+            publicKey:
+              type: string
+  responses:
+    200:
+      description: Successful Creating Message
+      content:
+        application/json:
+          schema:
+            required:
+              - id
+            type: object
+            properties:
+              id:
+                type: string

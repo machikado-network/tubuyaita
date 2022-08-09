@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+    title: Tubuyaita API
+    description: Tubuyaita Server API Schemas
+    version: 0.0.1
+servers:
+    - url: http://{host}:{port}/api/v0
+      description: For local debugging
+      variables:
+        host:
+            default: localhost
+        port:
+            default: '8080'
+paths:
+  /messages:
+    $ref: "./services/messages/index.yaml"
+
