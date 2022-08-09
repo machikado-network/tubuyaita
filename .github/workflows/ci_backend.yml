@@ -47,3 +47,4 @@ jobs:
           mix deps.compile
 
       - run: mix test --trace --slowest 10
+        working-directory: tubuyaita
