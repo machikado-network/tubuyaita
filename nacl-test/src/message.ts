@@ -41,21 +41,24 @@ interface Retweet {
 const decodeUtf8 = (s: Uint8Array) => Buffer.from(s).toString("hex")
 const encodeUtf8 = (s: string) => Buffer.from(s, "hex")
 
-// ------ Alice ------
+
+// 二人の鍵を生成
 const {publicKey: alicePublicKey, secretKey: aliceSecretKey} = nacl.sign.keyPair()
 const {publicKey: bobPublicKey, secretKey: bobSecretKey} = nacl.sign.keyPair()
 
-// BobとAliceのX25519鍵を作る
-const aliceDHSecretKey = ed2curve.convertSecretKey(aliceSecretKey)
-const bobDHPublicKey = ed2curve.convertPublicKey(bobPublicKey)
+// ------ Alice ------
+
+// Aliceは自分のX25519秘密鍵とBobのX25519公開鍵を作る
+const aliceX25519SecretKey = ed2curve.convertSecretKey(aliceSecretKey)
+const bobX25519PublicKey = ed2curve.convertPublicKey(bobPublicKey)
 
 
 const nonce = nacl.randomBytes(24)
-// AliceのDH秘密鍵でContentを暗号化
+// AliceのX25519秘密鍵でContentを暗号化
 const raw_content: Content = {
     body: "Hello, It's private message from alice to bob"
 }
-const encryptedContent: Encrypted<Content> = decodeUtf8(nacl.box(new TextEncoder().encode(JSON.stringify(raw_content)), nonce, bobDHPublicKey!, aliceDHSecretKey))
+const encryptedContent: Encrypted<Content> = decodeUtf8(nacl.box(new TextEncoder().encode(JSON.stringify(raw_content)), nonce, bobX25519PublicKey!, aliceX25519SecretKey))
 
 
 const content: EncryptedContent = {
@@ -86,7 +89,8 @@ const httpBody = JSON.stringify(send_message)
 
 
 // ----- Bob ------
-const bobDHSecretKey = ed2curve.convertSecretKey(bobSecretKey)
+// Bobは自分の秘密鍵から自分のX25519秘密鍵を作る
+const bobX25519SecretKey = ed2curve.convertSecretKey(bobSecretKey)
 
 
 const message: Message & Timestamp = JSON.parse(httpBody)
@@ -98,11 +102,13 @@ const receivedEncryptedContents: EncryptedContents & Timestamp = JSON.parse(mess
 
 const receivedEncryptedContent = receivedEncryptedContents.contents[0]
 
-// BobはBobのDH秘密鍵とAliceのDH公開鍵を使って解錠する
-const aliceDHPublicKey = ed2curve.convertPublicKey(encodeUtf8(message.publicKey))
+// BobはBobのX25519秘密鍵とAliceのX25519公開鍵を使って解錠する
+
+// BobはAliceから送られてきた公開鍵からAliceのX25519公開鍵を作る
+const aliceX25519PublicKey = ed2curve.convertPublicKey(encodeUtf8(message.publicKey))
 
 // 解読する
-const decryptedMessage = nacl.box.open(encodeUtf8(receivedEncryptedContent.content), encodeUtf8(receivedEncryptedContent.nonce), aliceDHPublicKey!, bobDHSecretKey)
+const decryptedMessage = nacl.box.open(encodeUtf8(receivedEncryptedContent.content), encodeUtf8(receivedEncryptedContent.nonce), aliceX25519PublicKey!, bobX25519SecretKey)
 
 const realContent = nacl_util.encodeUTF8(decryptedMessage!)
 
