@@ -1,10 +1,7 @@
-import nacl_util from "tweetnacl-util";
 import nacl from "tweetnacl";
 import ed2curve from "ed2curve";
 import {Content, Encrypted, EncryptedContent, EncryptedContents, Message, Timestamp} from "./types";
 const decodeUtf8 = (s: Uint8Array) => Buffer.from(s).toString("hex")
-const encodeUtf8 = (s: string) => Buffer.from(s, "hex")
-
 
 
 // 二人の鍵を生成
@@ -53,29 +50,16 @@ console.log()
 
 const httpBody = JSON.stringify(send_message)
 
+const send = async () => {
+    const response = await fetch("http://127.0.0.1:8000/api/v0/messages", {
+        method: "POST",
+        body: httpBody,
+        headers: [
+            ["Content-Type", "application/json"]
+        ]
+    })
+    console.log(response.status)
+    console.log(await response.text())
+}
 
-// ----- Bob ------
-// Bobは自分の秘密鍵から自分のX25519秘密鍵を作る
-const bobX25519SecretKey = ed2curve.convertSecretKey(bobSecretKey)
-
-
-const message: Message & Timestamp = JSON.parse(httpBody)
-
-// 本当にAliceからきたか確かめる
-console.assert(nacl.sign.open(encodeUtf8(message.sign), encodeUtf8(message.publicKey)) !== null)
-
-const receivedEncryptedContents: EncryptedContents & Timestamp = JSON.parse(message.contents)
-
-const receivedEncryptedContent = receivedEncryptedContents.contents[0]
-
-// BobはBobのX25519秘密鍵とAliceのX25519公開鍵を使って解錠する
-
-// BobはAliceから送られてきた公開鍵からAliceのX25519公開鍵を作る
-const aliceX25519PublicKey = ed2curve.convertPublicKey(encodeUtf8(message.publicKey))
-
-// 解読する
-const decryptedMessage = nacl.box.open(encodeUtf8(receivedEncryptedContent.content), encodeUtf8(receivedEncryptedContent.nonce), aliceX25519PublicKey!, bobX25519SecretKey)
-
-const realContent = nacl_util.encodeUTF8(decryptedMessage!)
-
-console.log(realContent)
+send().catch(console.error)
