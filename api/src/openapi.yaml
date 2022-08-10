@@ -14,3 +14,7 @@ servers:
 paths:
   /messages:
     $ref: './services/messages/index.yaml'
+components:
+  schemas:
+    Message:
+      $ref: './components/message.yaml'
