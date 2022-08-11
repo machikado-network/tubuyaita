@@ -45,6 +45,9 @@ jobs:
           mix local.hex --force
           mix deps.get
           mix deps.compile
+          mix compile --force
+          mix rustler_precompiled.download Tubuyaita.Crypto --only-local
+          mix compile
 
       - run: mix test --trace --slowest 10
         working-directory: tubuyaita
