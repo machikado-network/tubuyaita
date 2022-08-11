@@ -7,6 +7,5 @@ defmodule Tubuyaita.Repo.Migrations.CreateUser do
       add(:raw_data, :binary, null: false)
       add(:signature, :binary, null: false)
     end
-    create unique_index(:user, [:public_key])
   end
 end

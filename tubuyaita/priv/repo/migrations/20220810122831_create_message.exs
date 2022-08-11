@@ -11,6 +11,5 @@ defmodule Tubuyaita.Repo.Migrations.CreateMessage do
     end
     create index(:message, [:created_at])
     create index(:message, [:public_key])
-    create unique_index(:message, [:contents_hash])
   end
 end
