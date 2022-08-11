@@ -4,7 +4,7 @@ defmodule Tubuyaita.MixProject do
   def project do
     [
       app: :tubuyaita,
-      version: "0.1.0",
+      version: "0.1.3",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
@@ -48,7 +48,10 @@ defmodule Tubuyaita.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:rustler, "~> 0.25.0"},
+      {:rustler_precompiled, "~> 0.5"}
     ]
   end
 

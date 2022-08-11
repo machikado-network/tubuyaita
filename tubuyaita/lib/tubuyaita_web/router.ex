@@ -21,9 +21,13 @@ defmodule TubuyaitaWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TubuyaitaWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TubuyaitaWeb.Api do
+    pipe_through :api
+
+    scope "/v1", V1, as: :v1 do
+      post "/messages", MessagesController, :post
+    end
+  end
 
   # Enables LiveDashboard only for development
   #

@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/native/tubuyaita_crypto/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix_html" />
       <excludeFolder url="file://$MODULE_DIR$/cover" />
@@ -44,6 +45,12 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy_telemetry" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_cowboy" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/erlex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/dialyxir" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/toml" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/rustler" />
+      <excludeFolder url="file://$MODULE_DIR$/native/tubuyaita_crypto/target" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/rustler_precompiled" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="phoenix" level="project" />
@@ -102,5 +109,11 @@
     <orderEntry type="library" name="cowboy_telemetry" level="project" />
     <orderEntry type="library" name="kadabra" level="project" />
     <orderEntry type="library" name="x509" level="project" />
+    <orderEntry type="library" name="erlex" level="project" />
+    <orderEntry type="library" name="credo" level="project" />
+    <orderEntry type="library" name="rustler" level="project" />
+    <orderEntry type="library" name="toml" level="project" />
+    <orderEntry type="library" name="benchee_html" level="project" />
+    <orderEntry type="library" name="rustler_precompiled" level="project" />
   </component>
 </module>
