@@ -37,12 +37,13 @@ const contents: EncryptedContents & Timestamp = {
 const stringedContents = JSON.stringify(contents)
 
 
-const send_message: Message & Timestamp = {
+const send_message: Message = {
     publicKey: decodeUtf8(alicePublicKey),
     contents: stringedContents,
-    timestamp: Date.now(),
-    sign: decodeUtf8(nacl.sign(nacl.hash(Buffer.from(stringedContents)), aliceSecretKey)),
+    sign: decodeUtf8(nacl.sign.detached(nacl.hash(Buffer.from(stringedContents)), aliceSecretKey)),
 }
+console.log(nacl.sign.signatureLength)
+console.log(nacl.sign.detached(nacl.hash(Buffer.from(stringedContents)), aliceSecretKey).length)
 
 console.log("Sending message:")
 console.log(send_message)
@@ -51,7 +52,7 @@ console.log()
 const httpBody = JSON.stringify(send_message)
 
 const send = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/v0/messages", {
+    const response = await fetch("http://127.0.0.1:4000/api/v1/messages", {
         method: "POST",
         body: httpBody,
         headers: [
@@ -59,7 +60,7 @@ const send = async () => {
         ]
     })
     console.log(response.status)
-    console.log(await response.text())
+    // console.log(await response.text())
 }
 
 send().catch(console.error)

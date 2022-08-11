@@ -1,8 +1,8 @@
 defmodule Tubuyaita.User do
   use Ecto.Schema
 
+  @primary_key {:public_key, :binary, []}
   schema "user" do
-    field(:public_key, :binary)
     field(:raw_data, :binary)
     field(:signature,:binary)
   end

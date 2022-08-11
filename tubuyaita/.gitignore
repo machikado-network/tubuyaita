@@ -32,3 +32,5 @@ tubuyaita-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Rustler
+/priv/native/
