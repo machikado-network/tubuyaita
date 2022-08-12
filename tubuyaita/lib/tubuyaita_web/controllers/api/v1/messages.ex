@@ -9,7 +9,7 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
       |> put_status(201)
       |> render("message.json", %{message: msg})
     else
-      {:err, err} ->
+      {:error, err} ->
         conn
         |> put_status(401)
         |> render("error.json", %{error: err})
