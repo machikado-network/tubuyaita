@@ -16,7 +16,6 @@ defmodule Tubuyaita.Message do
         :: :ok | {:err, keyword()}
   def insert_message(contents, publicKey, sign) do
     content_hash = Crypto.hash(contents)
-    %{"timestamp" => timestamp} = Jason.decode!(contents)
 
     with {:ok, %{"timestamp" => timestamp}} = Jason.decode(contents),
          true <- Tubuyaita.Crypto.verify_message(contents, publicKey, sign),
