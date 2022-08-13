@@ -2,23 +2,45 @@ defmodule Tubuyaita.Message do
   @moduledoc false
   alias Tubuyaita.{Repo, Crypto}
 
-  @spec insert_message(String.t(), String.t(), String.t()) :: :ok | :err
+  @doc """
+  送られてきたメッセージをデータベースに追加します。
+
+  ## 引数
+
+  - contents: メッセージ本文がJSON形式でstringifyされている文字列です。
+  - publicKey: signを署名した公開鍵です。
+  - sign: contentsのhashをpublicKeyで署名したものです。
+
+  """
+  @spec insert_message(String.t(), String.t(), String.t())
+        :: :ok | {:err, keyword()}
   def insert_message(contents, publicKey, sign) do
     content_hash = Crypto.hash(contents)
-    %{"timestamp" => timestamp} = Jason.decode!(contents)
 
-    with {:ok, datetime} <- Ecto.Type.cast(:naive_datetime_usec, DateTime.from_unix!(timestamp, :millisecond) |> DateTime.to_naive) do
-      {:ok, _msg} =
-        Repo.insert(%Tubuyaita.Message.Message {
-          contents_hash: content_hash,
-          created_at: datetime,
-          public_key: Base.decode16!(publicKey, case: :mixed),
-          raw_message: contents,
-          signature: Base.decode16!(sign, case: :mixed),
-        })
-        :ok
+    with {:ok, %{"timestamp" => timestamp}} = Jason.decode(contents),
+         {:ok, timestamp} = DateTime.from_unix(timestamp, :millisecond),
+         true <- Tubuyaita.Crypto.verify_message(contents, publicKey, sign),
+         {:ok, datetime} <- Ecto.Type.cast(
+           :naive_datetime_usec,
+           timestamp
+           |> DateTime.to_naive
+         ),
+         {:ok, _msg} <- Repo.insert(
+           %Tubuyaita.Message.Message {
+             contents_hash: content_hash,
+             created_at: datetime,
+             public_key: Base.decode16!(publicKey, case: :mixed),
+             raw_message: contents,
+             signature: Base.decode16!(sign, case: :mixed),
+           }
+         ) do
+      :ok
     else
-      _ -> :err
+      {:error, %Jason.DecodeError{}} -> {:error, :invalid_json}
+      false -> {:error, :invalid_json}
+      :error -> {:error, :invalid_timestamp}
+      {:error, atom} -> {:error, atom}
+      _ -> {:error, :conflict}
     end
   end
 
