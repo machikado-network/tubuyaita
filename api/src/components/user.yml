@@ -1,0 +1,11 @@
+name: User
+description: ユーザーデータ
+properties:
+  data:
+    title: Data
+    description: ユーザーデータ。`username`,`icon_url`,`bio`,`header_url`のJSONをstringifyしたもの。
+    type: string
+  sign:
+    title: Sign
+    description: dataをhash化したものをpublic keyで署名したもの。
+    type: string

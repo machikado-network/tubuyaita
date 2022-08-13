@@ -1,0 +1,21 @@
+description: Message with user info if user info is exists.
+properties:
+  publicKey:
+    description: "送信元のPublic Key"
+    type: string
+  sign:
+    description: "送信元がcontentsに行った証明"
+    type: string
+  contents:
+    description: "送信する内容"
+    type: string
+  userInfo:
+    description: ユーザー情報
+    type: object
+    nullable: true
+    properties:
+      data:
+        description: ユーザーデータ。`username`,`icon_url`,`bio`,`header_url`のJSONをstringifyしたもの。
+        type: string
+      sign:
+        description: dataをhash化したものをpublic keyで署名したもの。

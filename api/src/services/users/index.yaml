@@ -1,0 +1,22 @@
+description: ユーザーについての操作を行うEndpoint.
+put:
+  summary: |
+    Create or Update user info
+  description: ''
+  operationId: putUsers
+  parameters:
+    - in: path
+      name: publicKey
+      required: true
+      description: 編集するユーザーのpublic Key
+      schema:
+        type: string
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/user.yml'
+  responses:
+    200:
+      description: Create or Updated user data.

@@ -14,7 +14,13 @@ servers:
 paths:
   /messages:
     $ref: './services/messages/index.yaml'
+  /users/{publicKey}:
+    $ref: './services/users/index.yaml'
 components:
   schemas:
     Message:
       $ref: './components/message.yaml'
+    UserMessage:
+      $ref: './components/user_message.yml'
+    User:
+      $ref: './components/user.yml'

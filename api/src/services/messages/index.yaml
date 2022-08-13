@@ -16,10 +16,45 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../components/message.yaml'
+            $ref: '../../components/user_message.yml'
     401:
       description: contentsの証明が正しくない。
     409:
       description: contentsのハッシュ値のメッセージが、すでに存在している。
     429:
       description: メッセージの送信速度が早すぎる。
+
+get:
+  summary: |
+    Get Messages
+  description: メッセージ一覧を取得します。
+  operationId: getMessages
+  parameters:
+    - in: query
+      name: limit
+      schema:
+        type: integer
+        maximum: 100
+        minimum: 1
+        description: 取得するメッセージの最大個数
+    - in: query
+      name: hash
+      description: このhashより後のメッセージを取得する。timestampが必要。
+      schema:
+        type: string
+        nullable: true
+    - in: query
+      name: timestamp
+      description: このtimestampより後のメッセージを取得する。hashが必要。
+      schema:
+        type: number
+        nullable: true
+  responses:
+    200:
+      description: ユーザーデータを取得した
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../components/user_message.yml'
