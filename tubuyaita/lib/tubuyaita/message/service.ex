@@ -18,10 +18,11 @@ defmodule Tubuyaita.Message do
     content_hash = Crypto.hash(contents)
 
     with {:ok, %{"timestamp" => timestamp}} = Jason.decode(contents),
+         {:ok, timestamp} = DateTime.from_unix(timestamp, :millisecond),
          true <- Tubuyaita.Crypto.verify_message(contents, publicKey, sign),
          {:ok, datetime} <- Ecto.Type.cast(
            :naive_datetime_usec,
-           DateTime.from_unix!(timestamp, :millisecond)
+           timestamp
            |> DateTime.to_naive
          ),
          {:ok, _msg} <- Repo.insert(
@@ -38,6 +39,7 @@ defmodule Tubuyaita.Message do
       {:error, %Jason.DecodeError{}} -> {:error, :invalid_json}
       false -> {:error, :invalid_json}
       :error -> {:error, :invalid_timestamp}
+      {:error, atom} -> {:error, atom}
       _ -> {:error, :conflict}
     end
   end
