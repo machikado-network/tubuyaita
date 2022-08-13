@@ -38,7 +38,7 @@ defmodule Tubuyaita.Message do
       {:error, %Jason.DecodeError{}} -> {:error, :invalid_json}
       false -> {:error, :invalid_json}
       :error -> {:error, :invalid_timestamp}
-      _ -> {:error, :confrict}
+      _ -> {:error, :conflict}
     end
   end
 
