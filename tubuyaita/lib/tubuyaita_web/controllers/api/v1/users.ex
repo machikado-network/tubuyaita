@@ -2,7 +2,7 @@ defmodule TubuyaitaWeb.Api.V1.UsersController do
   @moduledoc false
   use TubuyaitaWeb, :controller
 
-  @spec put(Plug.Conn.t(), %{publicKey: String.t(), sign: String.t(), data: String.t()}) :: Plug.Conn.t()
+  @spec put(Plug.Conn.t(), %{"publicKey": String.t(), "sign": String.t(), "data":  String.t()}) :: Plug.Conn.t()
   def put(conn, %{"data" => data, "sign" => sign, "publicKey" => public_key} = user) do
     with :ok <- Tubuyaita.User.create_or_update_user(public_key, data, sign) do
       conn
@@ -16,7 +16,7 @@ defmodule TubuyaitaWeb.Api.V1.UsersController do
     end
   end
 
-  @spec get(Plug.Conn.t(), %{publicKey: String.t()}) :: Plug.Conn.t()
+  @spec get(Plug.Conn.t(), %{"publicKey": String.t()}) :: Plug.Conn.t()
   def get(conn, %{"publicKey" => public_key}) do
     case Tubuyaita.User.get_user public_key do
       nil -> conn
