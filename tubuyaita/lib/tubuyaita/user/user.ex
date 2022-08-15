@@ -1,4 +1,4 @@
-defmodule Tubuyaita.User do
+defmodule Tubuyaita.User.User do
   use Ecto.Schema
 
   @primary_key {:public_key, :binary, []}
