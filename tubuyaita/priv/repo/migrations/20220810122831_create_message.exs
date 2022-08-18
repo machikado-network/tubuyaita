@@ -3,7 +3,7 @@ defmodule Tubuyaita.Repo.Migrations.CreateMessage do
 
   def change do
     create table(:message, primary_key: false) do
-      add(:contents_hash, :string, null: false, primary_key: true)
+      add(:contents_hash, :binary, null: false, primary_key: true)
       add(:created_at, :timestamp, null: false)
       add(:public_key, :binary, null: false)
       add(:raw_message, :binary, null: false)

@@ -1,7 +1,7 @@
 defmodule Tubuyaita.Message.Message do
   use Ecto.Schema
 
-  @primary_key {:contents_hash, :string, []}
+  @primary_key {:contents_hash, :binary, []}
   schema "message" do
     field(:created_at, :naive_datetime_usec)
     field(:public_key, :binary)
