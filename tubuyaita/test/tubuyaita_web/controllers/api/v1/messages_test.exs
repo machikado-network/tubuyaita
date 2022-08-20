@@ -33,7 +33,7 @@ defmodule TubuyaitaWeb.APIv1MessagesTest do
     conn = conn |> get("/api/v1/messages?limit=1")
 
     assert conn |> get_resp_header("link") == [
-             ~S'</api/v1/messages?cursor=eyJoIjoiemdKRWs3MXZtSVdXLVJKR1FNU3ZmNFN2eEc2cU9Scm00Vnk0c0VTVDM2QVc5NmliTENKakV2ZFdwWlktQ2tFRW5xLWFsTl9VVlc3dnZCOFVGdGFlYnc9PSIsInQiOjE2NTk0ODAzNjAwODAsInYiOjF9&limit=1>; rel="next"'
+             ~S'</api/v1/messages?cursor=eyJoIjoiY2UwMjQ0OTNiZDZmOTg4NTk2ZjkxMjQ2NDBjNGFmN2Y4NGFmYzQ2ZWFhMzkxYWU2ZTE1Y2I4YjA0NDkzZGZhMDE2ZjdhODliMmMyMjYzMTJmNzU2YTU5NjNlMGE0MTA0OWVhZjlhOTRkZmQ0NTU2ZWVmYmMxZjE0MTZkNjllNmYiLCJ0IjoxNjU5NDgwMzYwMDgwLCJ2IjoxfQ&limit=1>; rel="next"'
            ]
 
     res = json_response(conn, 200) |> Enum.at(0)
