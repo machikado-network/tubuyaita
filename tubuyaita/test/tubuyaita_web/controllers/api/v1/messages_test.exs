@@ -139,7 +139,7 @@ defmodule TubuyaitaWeb.APIv1MessagesTest do
   end
 
   test "get messages with cursor B", %{conn: conn} do
-    [{timeA, hashA}, {timeB, hashB},_] = setup_three_message()
+    [{timeA, hashA}, {timeB, hashB}, _] = setup_three_message()
     # BのほうがAよりも先に書かれた扱いになる
     assert timeA == timeB
 
