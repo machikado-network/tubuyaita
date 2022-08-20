@@ -37,7 +37,7 @@ defmodule Tubuyaita.Crypto do
   @spec sign(String.t(), binary(), binary()) :: binary()
   def sign(_message, _secret_key, _public_key), do: :erlang.nif_error(:nif_not_loaded)
 
-  @spec from_hex(String.t()) :: binary()
+  @spec from_hex(String.t()) :: binary() | {:error, :invalid_hex_string}
   def from_hex(_message), do: :erlang.nif_error(:nif_not_loaded)
 
   @spec to_hex(binary()) :: String.t()
