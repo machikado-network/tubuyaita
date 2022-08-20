@@ -9,7 +9,7 @@ defmodule TubuyaitaWeb.Cursor do
   """
   @spec parse(String.t()) :: {:ok, Tubuyaita.Message.cursor()} | :err
   def parse(cursor) do
-    with {:ok, d} <- Base.url_decode64(cursor),
+    with {:ok, d} <- Base.url_decode64(cursor, padding: false),
          {:ok, %{"t" => time, "h" => contents_hash, "v" => 1}} <- Jason.decode(d),
          {:ok, time} <- time |> DateTime.from_unix(:millisecond),
          {:ok, contents_hash} <- Base.url_decode64(contents_hash) do
@@ -33,6 +33,6 @@ defmodule TubuyaitaWeb.Cursor do
       "v" => 1
     }
     |> Jason.encode!()
-    |> Base.url_encode64()
+    |> Base.url_encode64(padding: false)
   end
 end
