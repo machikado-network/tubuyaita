@@ -1,6 +1,8 @@
 defmodule Tubuyaita.Message do
   @moduledoc false
   alias Tubuyaita.{Repo, Crypto}
+  import Ecto.Query
+  @type cursor() :: :latest #| %{before: NaiveDateTime.t()}
 
   @doc """
   送られてきたメッセージをデータベースに追加します。
@@ -44,4 +46,11 @@ defmodule Tubuyaita.Message do
     end
   end
 
+  @spec get_messages(cursor(), pos_integer()) :: :ok | :err
+  def get_messages(cursor, limit)
+
+  def get_messages(:latest, limit) do
+    from(m in Tubuyaita.Message.Message, select: m, order_by: [desc: m.created_at, asc: m.contents_hash], limit: ^limit)
+    |> Repo.all()
+  end
 end

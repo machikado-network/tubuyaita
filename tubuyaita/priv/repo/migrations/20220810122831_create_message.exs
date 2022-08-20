@@ -9,6 +9,7 @@ defmodule Tubuyaita.Repo.Migrations.CreateMessage do
       add(:raw_message, :binary, null: false)
       add(:signature, :binary, null: false)
     end
+
     create index(:message, [:created_at])
     create index(:message, [:public_key])
   end

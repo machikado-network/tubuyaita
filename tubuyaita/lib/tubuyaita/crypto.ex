@@ -3,12 +3,12 @@ defmodule Tubuyaita.Crypto do
   version = "0.3.2"
 
   use RustlerPrecompiled,
-      otp_app: :tubuyaita,
-      crate: "tubuyaita_crypto",
-      base_url:
-        "https://github.com/machikado-network/tubuyaita-crypto/releases/download/v#{version}",
-      force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
-      version: version
+    otp_app: :tubuyaita,
+    crate: "tubuyaita_crypto",
+    base_url:
+      "https://github.com/machikado-network/tubuyaita-crypto/releases/download/v#{version}",
+    force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
+    version: version
 
   @doc """
     Tubuyaita.Message.Message用の、hexでencodeされたものをverifyする関数

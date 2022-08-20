@@ -2,7 +2,8 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
   @moduledoc false
   use TubuyaitaWeb, :controller
 
-  @spec post(Plug.Conn.t(), %{publicKey: String.t(), sign: String.t(), contents: String.t()}) :: Plug.Conn.t()
+  @spec post(Plug.Conn.t(), %{publicKey: String.t(), sign: String.t(), contents: String.t()}) ::
+          Plug.Conn.t()
   def post(conn, %{"contents" => contents, "publicKey" => publicKey, "sign" => sign} = msg) do
     with :ok <- Tubuyaita.Message.insert_message(contents, publicKey, sign) do
       # send to all
@@ -18,10 +19,9 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
     end
   end
 
-  def get(conn,params) do
+  def get(conn, params) do
     conn
     |> put_status(200)
     |> render("messages.json", %{messages: []})
   end
-
 end
