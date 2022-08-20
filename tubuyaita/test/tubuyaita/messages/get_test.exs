@@ -4,8 +4,11 @@ defmodule Tubuyaita.MessagesTest do
 
   defp insert_message(timestamp, text) do
     contents = Jason.encode!(%{timestamp: timestamp, text: text})
-    Message.insert_message(contents, "", "")
-    Crypto.hash(contents)
+    {secret, public} = Crypto.generate_keypair()
+    hash = Crypto.hash(contents)
+    sign = Crypto.sign(hash, secret, public)
+    Message.insert_message(contents, Crypto.to_hex(public), Crypto.to_hex(sign))
+    hash
   end
 
   test "get latest 1 message" do

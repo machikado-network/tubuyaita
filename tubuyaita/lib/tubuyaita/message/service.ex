@@ -2,7 +2,7 @@ defmodule Tubuyaita.Message do
   @moduledoc false
   alias Tubuyaita.{Repo, Crypto}
   import Ecto.Query
-  @type cursor() :: :latest | %{before: %{time: NaiveDateTime.t(), contents_hash: String.t()}}
+  @type cursor() :: :latest | %{before: %{time: NaiveDateTime.t(), contents_hash: binary()}}
 
   @doc """
   送られてきたメッセージをデータベースに追加します。
