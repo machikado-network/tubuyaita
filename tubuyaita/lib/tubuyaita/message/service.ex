@@ -19,8 +19,8 @@ defmodule Tubuyaita.Message do
   def insert_message(contents, publicKey, sign) do
     content_hash = Crypto.hash(contents)
 
-    with {:ok, %{"timestamp" => timestamp}} = Jason.decode(contents),
-         {:ok, timestamp} = DateTime.from_unix(timestamp, :millisecond),
+    with {:ok, %{"timestamp" => timestamp}} <- Jason.decode(contents),
+         {:ok, timestamp} <- DateTime.from_unix(timestamp, :millisecond),
          true <- Tubuyaita.Crypto.verify_message(contents, publicKey, sign),
          {:ok, datetime} <-
            Ecto.Type.cast(
