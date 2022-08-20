@@ -1,4 +1,5 @@
 defmodule TubuyaitaWeb.Cursor do
+  require Logger
   @moduledoc """
   JSONをBase64URLでエンコードしたものをカーソルとする。
   tがtimestamp,hがcontents_hash,vがバージョンを表す。

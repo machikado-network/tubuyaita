@@ -22,11 +22,15 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
   end
 
   def get(conn, %{"cursor" => cursor} = params) do
-    limit = Map.get(params, "limit", @default_list_limit)
-
-    with {:ok, cursor} <- Cursor.parse(cursor) do
+    with {:ok, cursor} <- Cursor.parse(cursor),
+         {:ok, limit} <- get_limit(params) do
       _get(conn, cursor, limit)
     else
+      {:error, err} ->
+        conn
+        |> put_status(400)
+        |> render("error.json", %{error: err})
+
       _ ->
         conn
         |> put_status(400)
@@ -35,15 +39,14 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
   end
 
   def get(conn, params) do
-    limit = Map.get(params, "limit", @default_list_limit)
-
-    _get(conn, :latest, limit)
-  end
-
-  defp _get(conn, _cursor, limit) when limit > @max_list_limit do
-    conn
-    |> put_status(400)
-    |> render("error.json", %{error: :limit_is_too_large})
+    with {:ok, limit} <- get_limit(params) do
+      _get(conn, :latest, limit)
+    else
+      {:error, err} ->
+        conn
+        |> put_status(400)
+        |> render("error.json", %{error: err})
+    end
   end
 
   defp _get(conn, cursor, limit) do
@@ -51,8 +54,29 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
 
     conn
     |> put_status(200)
-    |> render("messages.json", %{messages: messages})
+    |> render("messages.json", %{
+      messages:
+        messages
+        |> Enum.map(fn e ->
+          %{
+            contents_hash: Base.url_encode64(e.contents_hash),
+            created_at: e.created_at,
+            public_key: Base.url_encode64(e.public_key),
+            raw_message: e.raw_message
+          }
+        end)
+    })
   end
 
+  defp get_limit(%{"limit" => limit}) do
+    case Integer.parse(limit) do
+      {limit, ""} when limit > @max_list_limit -> {:error, :limit_is_too_large}
+      {limit, ""} -> {:ok, limit}
+      _ -> {:error, :invalid_limit}
+    end
+  end
 
+  defp get_limit(%{}) do
+    {:ok, @default_list_limit}
+  end
 end
