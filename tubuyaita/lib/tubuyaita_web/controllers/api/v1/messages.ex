@@ -50,33 +50,36 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
   end
 
   defp _get(conn, cursor, limit) do
-    messages = Tubuyaita.Message.get_messages(cursor, limit)
+    case Tubuyaita.Message.get_messages(cursor, limit) do
+      [] ->
+        conn
+        |> put_status(200)
+        |> render("messages.json", %{
+          messages: []
+        })
 
-    conn
-    |> put_status(200)
-    |> render("messages.json", %{
-      messages:
-        messages
-        |> Enum.map(fn e ->
-          %{
-            contents_hash: Base.url_encode64(e.contents_hash),
-            created_at: e.created_at,
-            public_key: Base.url_encode64(e.public_key),
-            raw_message: e.raw_message
-          }
-        end)
-    })
+      messages ->
+        conn
+        |> put_resp_header("link", link(conn.request_path, messages |> List.last(), limit))
+        |> put_status(200)
+        |> render("messages.json", %{
+          messages: messages
+        })
+    end
   end
 
   defp get_limit(%{"limit" => limit}) do
     case Integer.parse(limit) do
-      {limit, ""} when limit > @max_list_limit -> {:error, :limit_is_too_large}
-      {limit, ""} -> {:ok, limit}
+      {limit, ""} when 0 < limit and limit <= @max_list_limit -> {:ok, limit}
       _ -> {:error, :invalid_limit}
     end
   end
 
   defp get_limit(%{}) do
     {:ok, @default_list_limit}
+  end
+
+  defp link(path, %{contents_hash: contents_hash, created_at: created_at}, limit) do
+    ~s/<#{path}?cursor=#{Cursor.encode(%{before: %{time: created_at, contents_hash: contents_hash}})}&limit=#{limit |> Integer.to_string()}>; rel="next"/
   end
 end

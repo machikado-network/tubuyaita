@@ -21,7 +21,7 @@ defmodule TubuyaitaWeb.Cursor do
           error: e
         })
 
-        :err
+        :error
     end
   end
 

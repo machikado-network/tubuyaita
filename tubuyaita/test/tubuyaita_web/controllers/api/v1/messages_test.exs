@@ -24,6 +24,33 @@ defmodule TubuyaitaWeb.APIv1MessagesTest do
     |> json_response(200)
   end
 
+  test "response format", %{conn: conn} do
+    insert_message(
+      1_659_480_360_080,
+      "bbb"
+    )
+
+    conn = conn |> get("/api/v1/messages?limit=1")
+
+    assert conn |> get_resp_header("link") == [
+             ~S'</api/v1/messages?cursor=eyJoIjoiemdKRWs3MXZtSVdXLVJKR1FNU3ZmNFN2eEc2cU9Scm00Vnk0c0VTVDM2QVc5NmliTENKakV2ZFdwWlktQ2tFRW5xLWFsTl9VVlc3dnZCOFVGdGFlYnc9PSIsInQiOjE2NTk0ODAzNjAwODAsInYiOjF9&limit=1>; rel="next"'
+           ]
+
+    res = json_response(conn, 200) |> Enum.at(0)
+
+    assert res = %{
+             "contents_hash" =>
+               "zgJEk71vmIWW-RJGQMSvf4SvxG6qORrm4Vy4sEST36AW96ibLCJjEvdWpZY-CkEEnq-alN_UVW7vvB8UFtaebw==",
+             "created_at" => 1_659_480_360_080,
+             "public_key" => "Ge9BilXj2PFow61k7oF9bKUof-zrjx8KffpNP-kKjn0=",
+             "raw_message" => "{\"text\":\"bbb\",\"timestamp\":1659480360080}"
+           }
+
+    rm = Jason.decode!(res["raw_message"])
+    assert rm["text"] == "bbb"
+    assert rm["timestamp"] == 1_659_480_360_080
+  end
+
   test "get latest 1 message", %{conn: conn} do
     insert_message(
       DateTime.new!(~D[2022-08-02], ~T[22:45:40.050]) |> DateTime.to_unix(:millisecond),
