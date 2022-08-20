@@ -1,5 +1,6 @@
 defmodule TubuyaitaWeb.Api.V1.MessagesView do
   use TubuyaitaWeb, :view
+  alias Tubuyaita.Crypto
 
   def render("message.json", %{message: message}) do
     message
@@ -9,9 +10,9 @@ defmodule TubuyaitaWeb.Api.V1.MessagesView do
     messages
     |> Enum.map(fn e ->
       %{
-        contents_hash: Base.url_encode64(e.contents_hash),
+        contents_hash: Crypto.to_hex(e.contents_hash),
         created_at: e.created_at|>DateTime.from_naive!("Etc/UTC")|>DateTime.to_unix(:millisecond),
-        public_key: Base.url_encode64(e.public_key),
+        public_key: Crypto.to_hex(e.public_key),
         raw_message: e.raw_message
       }
     end)

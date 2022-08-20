@@ -38,13 +38,13 @@ defmodule TubuyaitaWeb.APIv1MessagesTest do
 
     res = json_response(conn, 200) |> Enum.at(0)
 
-    assert res = %{
+    assert %{
              "contents_hash" =>
-               "zgJEk71vmIWW-RJGQMSvf4SvxG6qORrm4Vy4sEST36AW96ibLCJjEvdWpZY-CkEEnq-alN_UVW7vvB8UFtaebw==",
+               "ce024493bd6f988596f9124640c4af7f84afc46eaa391ae6e15cb8b04493dfa016f7a89b2c226312f756a5963e0a41049eaf9a94dfd4556eefbc1f1416d69e6f",
              "created_at" => 1_659_480_360_080,
-             "public_key" => "Ge9BilXj2PFow61k7oF9bKUof-zrjx8KffpNP-kKjn0=",
+             "public_key" => _pk,
              "raw_message" => "{\"text\":\"bbb\",\"timestamp\":1659480360080}"
-           }
+           } = res
 
     rm = Jason.decode!(res["raw_message"])
     assert rm["text"] == "bbb"
