@@ -17,4 +17,11 @@ defmodule TubuyaitaWeb.Api.V1.MessagesController do
         |> render("error.json", %{error: err})
     end
   end
+
+  def get(conn,params) do
+    conn
+    |> put_status(200)
+    |> render("messages.json", %{messages: []})
+  end
+
 end
