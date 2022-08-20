@@ -4,6 +4,6 @@ defmodule Tubuyaita.User.User do
   @primary_key {:public_key, :binary, []}
   schema "user" do
     field(:raw_data, :binary)
-    field(:signature,:binary)
+    field(:signature, :binary)
   end
 end

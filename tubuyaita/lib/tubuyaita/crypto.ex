@@ -3,12 +3,12 @@ defmodule Tubuyaita.Crypto do
   version = "0.3.2"
 
   use RustlerPrecompiled,
-      otp_app: :tubuyaita,
-      crate: "tubuyaita_crypto",
-      base_url:
-        "https://github.com/machikado-network/tubuyaita-crypto/releases/download/v#{version}",
-      force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
-      version: version
+    otp_app: :tubuyaita,
+    crate: "tubuyaita_crypto",
+    base_url:
+      "https://github.com/machikado-network/tubuyaita-crypto/releases/download/v#{version}",
+    force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
+    version: version
 
   @doc """
     Tubuyaita.Message.Message用の、hexでencodeされたものをverifyする関数
@@ -37,7 +37,7 @@ defmodule Tubuyaita.Crypto do
   @spec sign(String.t(), binary(), binary()) :: binary()
   def sign(_message, _secret_key, _public_key), do: :erlang.nif_error(:nif_not_loaded)
 
-  @spec from_hex(String.t()) :: binary()
+  @spec from_hex(String.t()) :: binary() | {:error, :invalid_hex_string}
   def from_hex(_message), do: :erlang.nif_error(:nif_not_loaded)
 
   @spec to_hex(binary()) :: String.t()

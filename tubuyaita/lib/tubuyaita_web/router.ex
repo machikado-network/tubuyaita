@@ -25,6 +25,7 @@ defmodule TubuyaitaWeb.Router do
     pipe_through :api
 
     scope "/v1", V1, as: :v1 do
+      get "/messages", MessagesController, :get
       post "/messages", MessagesController, :post
       put "/users/:publicKey", UsersController, :put
     end

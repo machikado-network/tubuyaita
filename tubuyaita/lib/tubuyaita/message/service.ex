@@ -1,6 +1,8 @@
 defmodule Tubuyaita.Message do
   @moduledoc false
   alias Tubuyaita.{Repo, Crypto}
+  import Ecto.Query, only: [from: 2]
+  @type cursor() :: :latest | %{before: %{time: NaiveDateTime.t(), contents_hash: binary()}}
 
   @doc """
   送られてきたメッセージをデータベースに追加します。
@@ -12,28 +14,28 @@ defmodule Tubuyaita.Message do
   - sign: contentsのhashをpublicKeyで署名したものです。
 
   """
-  @spec insert_message(String.t(), String.t(), String.t())
-        :: :ok | {:err, keyword()}
+  @spec insert_message(String.t(), String.t(), String.t()) ::
+          :ok | {:err, keyword()}
   def insert_message(contents, publicKey, sign) do
     content_hash = Crypto.hash(contents)
 
-    with {:ok, %{"timestamp" => timestamp}} = Jason.decode(contents),
-         {:ok, timestamp} = DateTime.from_unix(timestamp, :millisecond),
+    with {:ok, %{"timestamp" => timestamp}} <- Jason.decode(contents),
+         {:ok, timestamp} <- DateTime.from_unix(timestamp, :millisecond),
          true <- Tubuyaita.Crypto.verify_message(contents, publicKey, sign),
-         {:ok, datetime} <- Ecto.Type.cast(
-           :naive_datetime_usec,
-           timestamp
-           |> DateTime.to_naive
-         ),
-         {:ok, _msg} <- Repo.insert(
-           %Tubuyaita.Message.Message {
+         {:ok, datetime} <-
+           Ecto.Type.cast(
+             :naive_datetime_usec,
+             timestamp
+             |> DateTime.to_naive()
+           ),
+         {:ok, _msg} <-
+           Repo.insert(%Tubuyaita.Message.Message{
              contents_hash: content_hash,
              created_at: datetime,
              public_key: Base.decode16!(publicKey, case: :mixed),
              raw_message: contents,
-             signature: Base.decode16!(sign, case: :mixed),
-           }
-         ) do
+             signature: Base.decode16!(sign, case: :mixed)
+           }) do
       :ok
     else
       {:error, %Jason.DecodeError{}} -> {:error, :invalid_json}
@@ -44,4 +46,25 @@ defmodule Tubuyaita.Message do
     end
   end
 
+  @spec get_messages(cursor(), pos_integer()) :: list(%Tubuyaita.Message.Message{})
+  def get_messages(cursor, limit)
+
+  def get_messages(:latest, limit) do
+    from(m in Tubuyaita.Message.Message,
+      select: m,
+      order_by: [desc: m.created_at, desc: m.contents_hash],
+      limit: ^limit
+    )
+    |> Repo.all()
+  end
+
+  def get_messages(%{before: %{time: time, contents_hash: hash}}, limit) do
+    from(m in Tubuyaita.Message.Message,
+      select: m,
+      where: m.created_at < ^time or (m.created_at == ^time and m.contents_hash < ^hash),
+      order_by: [desc: m.created_at, desc: m.contents_hash],
+      limit: ^limit
+    )
+    |> Repo.all()
+  end
 end
