@@ -52,7 +52,7 @@ defmodule Tubuyaita.Message do
   def get_messages(:latest, limit) do
     from(m in Tubuyaita.Message.Message,
       select: m,
-      order_by: [desc: m.created_at, asc: m.contents_hash],
+      order_by: [desc: m.created_at, desc: m.contents_hash],
       limit: ^limit
     )
     |> Repo.all()
@@ -62,7 +62,7 @@ defmodule Tubuyaita.Message do
     from(m in Tubuyaita.Message.Message,
       select: m,
       where: m.created_at < ^time or (m.created_at == ^time and m.contents_hash < ^hash),
-      order_by: [desc: m.created_at, asc: m.contents_hash],
+      order_by: [desc: m.created_at, desc: m.contents_hash],
       limit: ^limit
     )
     |> Repo.all()

@@ -63,8 +63,8 @@ defmodule Tubuyaita.MessagesTest do
     assert Message.get_messages(:latest, 100) |> Enum.map(&Jason.decode!(&1.raw_message)["text"]) ==
              [
                "ccc",
-               "bbb",
-               "aaa"
+               "aaa",
+               "bbb"
              ]
 
     assert Message.get_messages(
@@ -78,8 +78,8 @@ defmodule Tubuyaita.MessagesTest do
            )
            |> Enum.map(&Jason.decode!(&1.raw_message)["text"]) ==
              [
-               "bbb",
-               "aaa"
+               "aaa",
+               "bbb"
              ]
 
     assert Message.get_messages(
@@ -106,7 +106,6 @@ defmodule Tubuyaita.MessagesTest do
              100
            )
            |> Enum.map(&Jason.decode!(&1.raw_message)["text"]) ==
-             [
-             ]
+             []
   end
 end
