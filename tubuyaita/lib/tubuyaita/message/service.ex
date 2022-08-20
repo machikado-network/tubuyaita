@@ -1,7 +1,7 @@
 defmodule Tubuyaita.Message do
   @moduledoc false
   alias Tubuyaita.{Repo, Crypto}
-  import Ecto.Query
+  import Ecto.Query, only: [from: 2]
   @type cursor() :: :latest | %{before: %{time: NaiveDateTime.t(), contents_hash: binary()}}
 
   @doc """
@@ -46,7 +46,7 @@ defmodule Tubuyaita.Message do
     end
   end
 
-  @spec get_messages(cursor(), pos_integer()) :: :ok | :err
+  @spec get_messages(cursor(), pos_integer()) :: list(%Tubuyaita.Message.Message{})
   def get_messages(cursor, limit)
 
   def get_messages(:latest, limit) do

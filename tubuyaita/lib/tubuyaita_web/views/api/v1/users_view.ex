@@ -2,7 +2,9 @@ defmodule TubuyaitaWeb.Api.V1.UsersView do
   use TubuyaitaWeb, :view
   alias Tubuyaita.Crypto
 
-  def render("user.json", %{user: %Tubuyaita.User.User{public_key: public_key, raw_data: data, signature: sign}}) do
+  def render("user.json", %{
+        user: %Tubuyaita.User.User{public_key: public_key, raw_data: data, signature: sign}
+      }) do
     %{public_key: Crypto.to_hex(public_key), raw_data: data, signature: Crypto.to_hex(sign)}
   end
 
@@ -12,7 +14,7 @@ defmodule TubuyaitaWeb.Api.V1.UsersView do
 
   def render("error.json", %{error: error}) do
     %{
-      "error": error
+      error: error
     }
   end
 end
