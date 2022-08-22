@@ -13,7 +13,8 @@ defmodule TubuyaitaWeb.Api.V1.MessagesView do
         contents_hash: Crypto.to_hex(e.contents_hash),
         created_at: e.created_at|>DateTime.from_naive!("Etc/UTC")|>DateTime.to_unix(:millisecond),
         public_key: Crypto.to_hex(e.public_key),
-        raw_message: e.raw_message
+        raw_message: e.raw_message,
+        sign: Crypto.to_hex(e.signature)
       }
     end)
   end
