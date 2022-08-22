@@ -25,7 +25,7 @@ defmodule Tubuyaita.Crypto do
   @doc """
   hash the message.
   """
-  @spec hash(String.t()) :: binary()
+  @spec hash(binary()) :: binary()
   def hash(_message), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
