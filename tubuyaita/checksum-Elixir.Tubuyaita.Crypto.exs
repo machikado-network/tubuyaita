@@ -1,50 +1,26 @@
 %{
-  "libtubuyaita_crypto-v0.3.2-nif-2.14-aarch64-apple-darwin.so.tar.gz" =>
-    "sha256:8f233678b44f7372ca0777626f30ad5021e6ed8136d350c0c83d72d8af44ea2c",
-  "libtubuyaita_crypto-v0.3.2-nif-2.14-aarch64-unknown-linux-gnu.so.tar.gz" =>
-    "sha256:7988f955562bdfb07a2d195919aea717a8b98026b1720840a09ba40de4b43d47",
-  "libtubuyaita_crypto-v0.3.2-nif-2.14-arm-unknown-linux-gnueabihf.so.tar.gz" =>
-    "sha256:36bcc58c0deece3074f9ccc2d99b2e00d97c73b116489b1af2d80be03a24db4d",
-  "libtubuyaita_crypto-v0.3.2-nif-2.14-x86_64-apple-darwin.so.tar.gz" =>
-    "sha256:d22939d4ca07875ba945433c1e3127447000b684206a75b33c24cc098331d5ee",
-  "libtubuyaita_crypto-v0.3.2-nif-2.14-x86_64-unknown-linux-gnu.so.tar.gz" =>
-    "sha256:c3695d714ec08ad7997c155376a1c99ccd07925d92563e70223319be44a959ce",
-  "libtubuyaita_crypto-v0.3.2-nif-2.14-x86_64-unknown-linux-musl.so.tar.gz" =>
-    "sha256:259fbafb6d14b0398adf68fdf303c750992320a0d48b9b1606e609fc6e1c5fb2",
-  "libtubuyaita_crypto-v0.3.2-nif-2.15-aarch64-apple-darwin.so.tar.gz" =>
-    "sha256:3b8821770058376569ba12ece1d4cde75d925b4673bc5b7cef0a4ccec96431dd",
-  "libtubuyaita_crypto-v0.3.2-nif-2.15-aarch64-unknown-linux-gnu.so.tar.gz" =>
-    "sha256:8729f2b6d9deeaef4eed6719c0e6e2ab793fe8e2f0fce2493e19625a236ac0d3",
-  "libtubuyaita_crypto-v0.3.2-nif-2.15-arm-unknown-linux-gnueabihf.so.tar.gz" =>
-    "sha256:44f56939484b5d1a632f7b37d60ee3d6cd6a1852c0663768afcdbe5dec341bce",
-  "libtubuyaita_crypto-v0.3.2-nif-2.15-x86_64-apple-darwin.so.tar.gz" =>
-    "sha256:33b758357b02e8c7fedc2971b1949a0b979a0660d227cfd2b68124fb52b2ed07",
-  "libtubuyaita_crypto-v0.3.2-nif-2.15-x86_64-unknown-linux-gnu.so.tar.gz" =>
-    "sha256:9e931ec48a24aed36b2e1f5510282aff8ef4699481d89d51c0874349ea8db2b5",
-  "libtubuyaita_crypto-v0.3.2-nif-2.15-x86_64-unknown-linux-musl.so.tar.gz" =>
-    "sha256:bacce54ef7bd4f3ee19dea58826530bf078b8824b627052f58e992544f38aea9",
-  "libtubuyaita_crypto-v0.3.2-nif-2.16-aarch64-apple-darwin.so.tar.gz" =>
-    "sha256:0a7b2cdb216bdff4755efe12ae7ec568fd2a73870dbd64da79dafcb3fbafa5a6",
-  "libtubuyaita_crypto-v0.3.2-nif-2.16-aarch64-unknown-linux-gnu.so.tar.gz" =>
-    "sha256:3e38235fcc5fb4ff899fc1d4a67ef93dea584042d8a5492683c0e4cb265df736",
-  "libtubuyaita_crypto-v0.3.2-nif-2.16-arm-unknown-linux-gnueabihf.so.tar.gz" =>
-    "sha256:4ea40503572b749ce1a6e8c78d0d11bbd185dbc2eae70a4c6d570567f82b8151",
-  "libtubuyaita_crypto-v0.3.2-nif-2.16-x86_64-apple-darwin.so.tar.gz" =>
-    "sha256:ac49a9d830d269db78485cbc7b1e5e33f92064da10c9d138ccf44e59a7ca6495",
-  "libtubuyaita_crypto-v0.3.2-nif-2.16-x86_64-unknown-linux-gnu.so.tar.gz" =>
-    "sha256:fd782437e1995d722f877f7106aaed56f41b9b19ea19320ff449030ba06e71a4",
-  "libtubuyaita_crypto-v0.3.2-nif-2.16-x86_64-unknown-linux-musl.so.tar.gz" =>
-    "sha256:e2a368e15292d0512c29e2cb34c0b67dc0a4c86aa74262305407b21331a3d7ee",
-  "tubuyaita_crypto-v0.3.2-nif-2.14-x86_64-pc-windows-gnu.dll.tar.gz" =>
-    "sha256:670fad1ca452b7252220dd5f32bc6afc38f2bc5caf1c792e9d0cc80dd3745812",
-  "tubuyaita_crypto-v0.3.2-nif-2.14-x86_64-pc-windows-msvc.dll.tar.gz" =>
-    "sha256:a3d7e19687b36c6400bb0e4d8a92667ae75db86ef559a24f99cb38a630f55332",
-  "tubuyaita_crypto-v0.3.2-nif-2.15-x86_64-pc-windows-gnu.dll.tar.gz" =>
-    "sha256:babc6e356a90e78a2d8246f4b57e128974656636c45e9236fca0795b3cd88016",
-  "tubuyaita_crypto-v0.3.2-nif-2.15-x86_64-pc-windows-msvc.dll.tar.gz" =>
-    "sha256:5e4b3c543fd77a69b511e4af3618959b3a5f3b8994ae6301dc2c4e24ba1fe2b1",
-  "tubuyaita_crypto-v0.3.2-nif-2.16-x86_64-pc-windows-gnu.dll.tar.gz" =>
-    "sha256:3058b2ed1dab88197e03fc6f58e85197d589b65d60a9bebd9ae36f445f590e33",
-  "tubuyaita_crypto-v0.3.2-nif-2.16-x86_64-pc-windows-msvc.dll.tar.gz" =>
-    "sha256:95c8a23bb3024d95e3cad91679982e1a88a5554f5b25f8f7db05039ee42cbc00"
+  "libtubuyaita_crypto-v0.4.0-nif-2.14-aarch64-apple-darwin.so.tar.gz" => "sha256:b4ef9976b15be9c159c4c26d052ccfb24eb2e7bc528b97a80061967f63549342",
+  "libtubuyaita_crypto-v0.4.0-nif-2.14-aarch64-unknown-linux-gnu.so.tar.gz" => "sha256:d51ba74cd2c52a52757762b339db89517cc7eecef69cda6704cf12a65a0be113",
+  "libtubuyaita_crypto-v0.4.0-nif-2.14-arm-unknown-linux-gnueabihf.so.tar.gz" => "sha256:be2e5601e5b494358eb88838a60f47c43af9dac519d895ae2f29782dd2350e82",
+  "libtubuyaita_crypto-v0.4.0-nif-2.14-x86_64-apple-darwin.so.tar.gz" => "sha256:410d171c4cfd1d6c4850ef06a5dd3082ae14ce2b9606979b9e8b61051fd243bc",
+  "libtubuyaita_crypto-v0.4.0-nif-2.14-x86_64-unknown-linux-gnu.so.tar.gz" => "sha256:94547a9462f2c03f9a58f791c3919c8041e14d048e8372ca0a9ceb1d6e3e9aae",
+  "libtubuyaita_crypto-v0.4.0-nif-2.14-x86_64-unknown-linux-musl.so.tar.gz" => "sha256:9aa7b5aa8a55832f29ce10324543d15db9a750e6c200a1751e674137842c568c",
+  "libtubuyaita_crypto-v0.4.0-nif-2.15-aarch64-apple-darwin.so.tar.gz" => "sha256:7dbc07842aa2eb42f7c86d3978609c187d30787d421be2eeb78c479adea78318",
+  "libtubuyaita_crypto-v0.4.0-nif-2.15-aarch64-unknown-linux-gnu.so.tar.gz" => "sha256:9a16570d30d20de492203b0610d9c9e7be51797be1a76b7405fe4500ab7f0d29",
+  "libtubuyaita_crypto-v0.4.0-nif-2.15-arm-unknown-linux-gnueabihf.so.tar.gz" => "sha256:d58a03a52739051e3b7224bd5b747002c99dac3f32ef59b22d4c330926f3229a",
+  "libtubuyaita_crypto-v0.4.0-nif-2.15-x86_64-apple-darwin.so.tar.gz" => "sha256:739c44481b3e04343ab77f6bf50e7ff5463358b9c12bb9e3a2d14a72b75dc23a",
+  "libtubuyaita_crypto-v0.4.0-nif-2.15-x86_64-unknown-linux-gnu.so.tar.gz" => "sha256:8d0c360ac70782b8aacd1c2e5d7e8bb6ea095c730e02b617484ed3ca9f6878b8",
+  "libtubuyaita_crypto-v0.4.0-nif-2.15-x86_64-unknown-linux-musl.so.tar.gz" => "sha256:2f69ae3692390c79d66a455bbd94fd7044622d85e5ab55b03c020da37deff46d",
+  "libtubuyaita_crypto-v0.4.0-nif-2.16-aarch64-apple-darwin.so.tar.gz" => "sha256:307eaa10c6469a143514b4d5719273ecd7e453886e7d47f8ba8de44fcf93ec8c",
+  "libtubuyaita_crypto-v0.4.0-nif-2.16-aarch64-unknown-linux-gnu.so.tar.gz" => "sha256:1ad8bfa9992a7ae76e0bf6bbeecc67f9af06b1fe298cd67c81c4c8c48df623b2",
+  "libtubuyaita_crypto-v0.4.0-nif-2.16-arm-unknown-linux-gnueabihf.so.tar.gz" => "sha256:0d9ffcc271c543579532c8736c94b7377c066d6760e8d13209e46c1b9f1b319c",
+  "libtubuyaita_crypto-v0.4.0-nif-2.16-x86_64-apple-darwin.so.tar.gz" => "sha256:266df771ae7e00c4572f84573fa0ac9207a093d48563228315fbb5394bd649a9",
+  "libtubuyaita_crypto-v0.4.0-nif-2.16-x86_64-unknown-linux-gnu.so.tar.gz" => "sha256:4417094be12f9749c715c3e58387392ca5067944de574565cb7dee83fb8dc720",
+  "libtubuyaita_crypto-v0.4.0-nif-2.16-x86_64-unknown-linux-musl.so.tar.gz" => "sha256:ea85084aa88b00ce33bec88a2bdd4645b24707904835ca5e809bd29cbbf1f985",
+  "tubuyaita_crypto-v0.4.0-nif-2.14-x86_64-pc-windows-gnu.dll.tar.gz" => "sha256:082da50b0e3783b4ea1311bbc1449f44c49af3c67996b219f0f1085a45806e1d",
+  "tubuyaita_crypto-v0.4.0-nif-2.14-x86_64-pc-windows-msvc.dll.tar.gz" => "sha256:d262cbc47dc0f5d6ec367d3ac177926e6a86a7c5f86886acc992dff4febfb383",
+  "tubuyaita_crypto-v0.4.0-nif-2.15-x86_64-pc-windows-gnu.dll.tar.gz" => "sha256:0fe0da23d529c6ee360bc18004837f64d487c22d2496b0f5c27acb17d8e4062f",
+  "tubuyaita_crypto-v0.4.0-nif-2.15-x86_64-pc-windows-msvc.dll.tar.gz" => "sha256:83a2e9a8c78e041f877ecc09818618e727ebc0d7d8823a85b61dc388f1356ce3",
+  "tubuyaita_crypto-v0.4.0-nif-2.16-x86_64-pc-windows-gnu.dll.tar.gz" => "sha256:4732cd1d369a68c3c9816c294f12f72908d3e30196606cdc7620b0b7150092cb",
+  "tubuyaita_crypto-v0.4.0-nif-2.16-x86_64-pc-windows-msvc.dll.tar.gz" => "sha256:86d4a28c5847f375764e7214c9016a743ec3eba1f7a84132e472e475c6a0a053",
 }
