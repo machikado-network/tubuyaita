@@ -64,9 +64,9 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   config :tubuyaita,
-         name: System.get_env("META_NAME") || "tubuyaita",
-         administrator: System.get_env("META_ADMIN") || "0x7c1e5d1d7ba8c6ca7d7b93d816cc65c069778fa849c6373d62e52dd7e25b6484"
-
+    name: System.get_env("META_NAME"),
+    icon_url: System.get_env("META_ICON"),
+    administrator: System.get_env("META_ADMIN")
 
   # ## Configuring the mailer
   #

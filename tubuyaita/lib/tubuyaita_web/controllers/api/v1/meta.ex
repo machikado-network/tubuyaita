@@ -9,7 +9,8 @@ defmodule TubuyaitaWeb.Api.V1.MetaController do
          "meta.json",
          %{
            name: Application.fetch_env!(:tubuyaita, :name),
-           administrator: Application.fetch_env!(:tubuyaita, :administrator)
+           administrator: Application.fetch_env!(:tubuyaita, :administrator),
+           icon_url: Application.fetch_env!(:tubuyaita, :icon_url)
          })
   end
 end
