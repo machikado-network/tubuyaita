@@ -47,6 +47,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :tubuyaita,
+       name: "tubuyaita",
+       administrator: "0x7c1e5d1d7ba8c6ca7d7b93d816cc65c069778fa849c6373d62e52dd7e25b6484"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
