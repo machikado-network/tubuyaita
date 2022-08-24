@@ -18,7 +18,7 @@ defmodule TubuyaitaWeb.MessageChannelTest do
   test "send_message", %{socket: socket} do
     {secret, public} = Tubuyaita.Crypto.generate_keypair()
     content = ~s/{"content": "abc", "timestamp": 1660828964067}/
-    sign = Tubuyaita.Crypto.sign(Tubuyaita.Crypto.hash(content), secret, public)
+    {:ok, sign} = Tubuyaita.Crypto.sign(Tubuyaita.Crypto.hash(content), secret, public)
     msg = %{"contents" => content, "publicKey" => Tubuyaita.Crypto.to_hex(public), "sign" => Tubuyaita.Crypto.to_hex(sign)}
     push(socket, "post_message", msg)
     assert_push "create_message", msg
@@ -28,7 +28,7 @@ defmodule TubuyaitaWeb.MessageChannelTest do
     {secret, public} = Tubuyaita.Crypto.generate_keypair()
     {_secret2, public2} = Tubuyaita.Crypto.generate_keypair()
     content = ~s/{"content": "abc", "timestamp": 1660828964067}/
-    sign = Tubuyaita.Crypto.sign(Tubuyaita.Crypto.hash(content), secret, public)
+    {:ok, sign} = Tubuyaita.Crypto.sign(Tubuyaita.Crypto.hash(content), secret, public)
     msg = %{"contents" => content, "publicKey" => Tubuyaita.Crypto.to_hex(public2), "sign" => Tubuyaita.Crypto.to_hex(sign)}
     ref = push(socket, "post_message", msg)
     assert_reply ref, :error, %{reason: "invalid_json"}

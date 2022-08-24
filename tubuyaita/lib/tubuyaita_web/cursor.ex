@@ -13,7 +13,7 @@ defmodule TubuyaitaWeb.Cursor do
     with {:ok, d} <- Base.url_decode64(cursor, padding: false),
          {:ok, %{"t" => time, "h" => contents_hash, "v" => 1}} <- Jason.decode(d),
          {:ok, time} <- time |> DateTime.from_unix(:millisecond),
-         contents_hash when is_binary(contents_hash) <- Crypto.from_hex(contents_hash) do
+         {:ok, contents_hash} <- Crypto.from_hex(contents_hash) do
       {:ok, %{before: %{time: time |> DateTime.to_naive(), contents_hash: contents_hash}}}
     else
       e ->

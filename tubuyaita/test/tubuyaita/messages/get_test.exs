@@ -6,7 +6,7 @@ defmodule Tubuyaita.MessagesTest do
     contents = Jason.encode!(%{timestamp: timestamp, text: text})
     {secret, public} = Crypto.generate_keypair()
     hash = Crypto.hash(contents)
-    sign = Crypto.sign(hash, secret, public)
+    {:ok, sign} = Crypto.sign(hash, secret, public)
     Message.insert_message(contents, Crypto.to_hex(public), Crypto.to_hex(sign))
     hash
   end

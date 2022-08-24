@@ -3,28 +3,28 @@ defmodule Tubuyaita.User do
   alias Tubuyaita.{Repo, Crypto}
   import Ecto.Query
 
-  @spec create_or_update_user(String.t(), String.t(), String.t()) :: :ok | {:error, keyword()}
+  @spec create_or_update_user(binary(), binary(), binary()) :: :ok | {:error, keyword()}
   def create_or_update_user(public_key, data, sign) do
     data_hash = Crypto.hash(data)
 
-    on_conflict = [
-      set: [
-        raw_data: data,
-        signature: Crypto.from_hex(sign)
-      ]
-    ]
-
-    with true <- Crypto.verify(data_hash, Crypto.from_hex(public_key), Crypto.from_hex(sign)),
-         {:ok, _msg} <- Repo.insert(
-           %Tubuyaita.User.User {
-             public_key: Crypto.from_hex(public_key),
-             raw_data: data,
-             signature: Crypto.from_hex(sign),
-           },
-           on_conflict: on_conflict,
-         conflict_target: :public_key
-         )
-      do
+    with {:ok, pk} <- Crypto.from_hex(public_key),
+         {:ok, sign} <- Crypto.from_hex(sign),
+         true <- Crypto.verify(data_hash, pk, sign),
+         {:ok, _msg} <-
+           Repo.insert(
+             %Tubuyaita.User.User{
+               public_key: pk,
+               raw_data: data,
+               signature: sign
+             },
+             on_conflict: [
+               set: [
+                 raw_data: data,
+                 signature: sign
+               ]
+             ],
+             conflict_target: :public_key
+           ) do
       :ok
     else
       false -> {:error, :invalid_signature}
@@ -34,7 +34,10 @@ defmodule Tubuyaita.User do
 
   @spec get_user(String.t()) :: %Tubuyaita.User.User{} | nil
   def get_user(public_key) do
-    Repo.get_by(Tubuyaita.User.User, public_key: Crypto.from_hex(public_key))
+    with {:ok, public_key} <- Crypto.from_hex(public_key) do
+      Repo.get_by(Tubuyaita.User.User, public_key: public_key)
+    else
+      _ -> nil
+    end
   end
-
 end
