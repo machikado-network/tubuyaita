@@ -28,6 +28,7 @@ defmodule TubuyaitaWeb.Router do
       get "/messages", MessagesController, :get
       post "/messages", MessagesController, :post
       put "/users/:publicKey", UsersController, :put
+      get "/meta", MetaController, :get
     end
   end
 

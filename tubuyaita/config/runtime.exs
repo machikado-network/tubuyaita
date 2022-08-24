@@ -63,6 +63,11 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  config :tubuyaita,
+    name: System.get_env("META_NAME"),
+    icon_url: System.get_env("META_ICON"),
+    administrator: System.get_env("META_ADMIN")
+
   # ## Configuring the mailer
   #
   # In production you need to configure the mailer to use a different adapter.
